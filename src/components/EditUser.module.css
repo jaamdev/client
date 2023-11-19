@@ -1,0 +1,53 @@
+.form {
+	width: 100%;
+	max-width: 600px;
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.2rem 0.5rem;
+}
+
+.form label {
+	width: 100%;
+	text-align: right;
+}
+
+.form input {
+	width: 100%;
+	text-align: left;
+	outline: transparent;
+}
+
+.form label,
+.form input {
+	padding: 0.2rem 0.5rem;
+}
+
+.div {
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	gap: 0 0.5rem;
+}
+
+.div button {
+	width: 2rem;
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	border-radius: 0;
+}
+
+.div button:hover {
+	background-color: transparent;
+}
+
+.div button svg {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	fill: #fff;
+}

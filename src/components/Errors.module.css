@@ -1,0 +1,12 @@
+.ul {
+	width: 100%;
+	max-width: 500px;
+	margin: auto;
+	padding: 0.5rem 1rem;
+	color: #fff;
+	background-color: #00406b;
+	border-radius: 0.5rem;
+	font-size: 1.2em;
+	text-align: center;
+	list-style-type: none;
+}

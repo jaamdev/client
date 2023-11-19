@@ -1,0 +1,23 @@
+.nav {
+	margin: 0.5rem auto;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.nav a {
+	padding: 0.2rem 0.5rem;
+	color: #fff;
+	background-color: #00406b;
+	border-radius: 0.2rem;
+	text-align: center;
+	letter-spacing: 0.05rem;
+	text-decoration: transparent;
+	transition: background-color 300ms;
+}
+
+.nav a:hover {
+	background-color: #09f;
+}

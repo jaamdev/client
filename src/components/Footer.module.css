@@ -1,0 +1,21 @@
+.footer {
+	margin: 1rem auto;
+	width: 100%;
+	text-align: center;
+	display: inline-block;
+}
+
+.footer a {
+	width: 100%;
+	padding: 0.5rem 1rem;
+	color: #fff;
+	background-color: #800000;
+	border-radius: 0.5rem;
+	letter-spacing: 0.1rem;
+	text-decoration: transparent;
+	transition: background-color 300ms;
+}
+
+.footer a:hover {
+	background-color: #cf0000;
+}

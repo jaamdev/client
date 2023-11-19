@@ -1,0 +1,21 @@
+.h2 {
+	padding: 0.5rem 0;
+	background-color: #00406b;
+}
+
+.btnBack {
+	width: 100%;
+	height: 100%;
+	margin: 0.5rem auto;
+	padding: 0.5rem 1rem;
+	color: #fff;
+	background-color: #007fd3;
+	border: none;
+	border-radius: 1rem 1rem 0 0;
+	cursor: pointer;
+	transition: background-color 300ms;
+}
+
+.btnBack:hover {
+	background-color: #09f;
+}
