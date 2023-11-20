@@ -5,7 +5,7 @@ export default function Errors() {
 	const { errors } = useAuth();
 
 	return (
-		<>
+		<div className={styles.div}>
 			{errors ? (
 				<ul className={styles.ul}>
 					{errors.map((error, index) => (
@@ -15,6 +15,6 @@ export default function Errors() {
 			) : (
 				''
 			)}
-		</>
+		</div>
 	);
 }

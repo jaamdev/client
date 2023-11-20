@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
 				setIsAuthenticated(false);
 				setToken(null);
 				setUser(null);
-				setErrors(error);
+				setErrors(['Servicio no disponible 😒']);
 			} finally {
 				setLoading(false);
 			}

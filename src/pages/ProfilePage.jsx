@@ -1,5 +1,6 @@
 import styles from './ProfilePage.module.css';
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { loginUser, getProfile, deleteUser } from '../services/api.js';
 import useAuth from '../hooks/useAuth.js';
 import EditUser from '../components/EditUser.jsx';
@@ -7,7 +8,12 @@ import EditUser from '../components/EditUser.jsx';
 export default function ProfilePage() {
 	const [profile, setProfile] = useState(null);
 	const [tabEditUser, setTabEditUser] = useState(false);
-	const { token, changeStateAuthenticated, changeStateErrors } = useAuth();
+	const {
+		isAuthenticated,
+		token,
+		changeStateAuthenticated,
+		changeStateErrors,
+	} = useAuth();
 
 	const updateProfile = profile => setProfile(profile);
 
@@ -39,15 +45,18 @@ export default function ProfilePage() {
 		const response = await getProfile(token);
 		if (!response.result) {
 			changeStateErrors(response.response);
+			changeStateAuthenticated(false);
 			return;
 		}
 		setProfile(response.data);
 		changeStateErrors(null);
 	};
 
+	if (!isAuthenticated) return <Navigate to='/' replace />;
+
 	useEffect(() => {
 		fetchProfile();
-	}, []);
+	}, [isAuthenticated]);
 
 	return (
 		<main className={styles.main}>

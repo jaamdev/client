@@ -14,15 +14,19 @@ export default function HomePage() {
 	const [editingTask, setEditingTask] = useState(null);
 	const [tabNewTask, setTabNewTask] = useState(false);
 	const [tabEditTask, setTabEditTask] = useState(false);
-	const { user, token, changeStateErrors } = useAuth();
+	const { user, token, changeStateAuthenticated, changeStateErrors } =
+		useAuth();
 
 	const hasTasks = tasks.length > 0;
 
-	async function fetchTasks(idToken) {
-		const response = await getTasks(idToken);
-		if (response.result) {
-			setTasks(response.data);
+	async function fetchTasks() {
+		const response = await getTasks(token);
+		if (!response.result) {
+			changeStateErrors(response.response);
+			changeStateAuthenticated(false);
+			return;
 		}
+		setTasks(response.data);
 	}
 
 	const addTask = task => {
@@ -64,7 +68,7 @@ export default function HomePage() {
 	};
 
 	useEffect(() => {
-		fetchTasks(token);
+		fetchTasks();
 	}, [token]);
 
 	return (

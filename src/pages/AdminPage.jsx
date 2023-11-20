@@ -1,5 +1,6 @@
 import styles from './AdminPage.module.css';
 import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { getAllUsers, getUserTasks, removeUser } from '../services/api.js';
 import useAuth from '../hooks/useAuth.js';
 import UserTasks from '../components/UserTasks.jsx';
@@ -9,7 +10,7 @@ export default function AdminPage() {
 	const [users, setUsers] = useState([]);
 	const [userTasks, setUserTasks] = useState(null);
 	const [showTabTasks, setShowTabTasks] = useState(false);
-	const { isAuthenticated, token } = useAuth();
+	const { isAuthenticated, user, token } = useAuth();
 
 	const getUsers = async () => {
 		const response = await getAllUsers(token);
@@ -33,6 +34,8 @@ export default function AdminPage() {
 		const newUsers = users.filter(user => user._id !== id);
 		setUsers(newUsers);
 	};
+
+	if (!user.admin) return <Navigate to='/' replace />;
 
 	useEffect(() => {
 		getUsers();
