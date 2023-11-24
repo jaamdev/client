@@ -41,6 +41,10 @@
 	background-color: #09f;
 }
 
+.form input[type='submit']:disabled {
+	background-color: #555;
+}
+
 .link {
 	width: max-content;
 	padding: 0.2rem 0.5rem;

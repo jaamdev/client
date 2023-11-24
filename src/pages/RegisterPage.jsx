@@ -5,17 +5,23 @@ import useAuth from '../hooks/useAuth.js';
 import { registerUser } from '../services/api.js';
 
 export default function RegisterPage() {
+	const [loading, setLoading] = useState(false);
 	const [redirectToLogin, setRedirectToLogin] = useState(false);
 	const { changeStateErrors } = useAuth();
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		setLoading(true);
 		const fields = Object.fromEntries(new FormData(e.target));
-		const response = await registerUser(fields);
+		const response = await registerUser(fields).catch(() => {
+			changeStateErrors(['Servicio no disponible 😒']);
+			setLoading(false);
+		});
 		if (response.result) {
 			changeStateErrors(response.response);
 			setRedirectToLogin(true);
 		} else {
+			setLoading(false);
 			changeStateErrors(response.response);
 		}
 	};
@@ -52,7 +58,11 @@ export default function RegisterPage() {
 					placeholder='b51L5!'
 					required
 				/>
-				<input type='submit' value='Enviar' />
+				<input
+					type='submit'
+					value={loading ? 'Enviando...' : 'Enviar'}
+					disabled={loading}
+				/>
 			</form>
 		</div>
 	);

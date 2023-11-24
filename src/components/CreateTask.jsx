@@ -1,12 +1,15 @@
 import styles from './CreateTask.module.css';
+import { useState } from 'react';
 import useAuth from '../hooks/useAuth.js';
 import { createTask } from '../services/api.js';
 
 export default function CreateTask({ addTask }) {
+	const [loading, setLoading] = useState(false);
 	const { changeStateErrors, token } = useAuth();
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		setLoading(true);
 		const fields = Object.fromEntries(new FormData(e.target));
 		const response = await createTask(token, fields);
 		if (response.result) {
@@ -14,6 +17,7 @@ export default function CreateTask({ addTask }) {
 			addTask(response.data);
 			e.target.reset();
 		} else changeStateErrors(response.response);
+		setLoading(false);
 	};
 
 	return (
@@ -40,7 +44,11 @@ export default function CreateTask({ addTask }) {
 					placeholder='Escribir una descripción...'
 					required
 				></textarea>
-				<input type='submit' value='Crear tarea' />
+				<input
+					type='submit'
+					value={loading ? 'Creando...' : 'Crear tarea'}
+					disabled={loading}
+				/>
 			</form>
 		</div>
 	);

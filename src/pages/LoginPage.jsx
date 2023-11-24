@@ -5,14 +5,19 @@ import { loginUser } from '../services/api.js';
 import { Navigate } from 'react-router-dom';
 
 export default function LoginPage() {
+	const [loading, setLoading] = useState(false);
 	const [redirectToRoot, setRedirectToRoot] = useState(false);
 	const { changeStateAuthenticated, changeStateToken, changeStateErrors } =
 		useAuth();
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		setLoading(true);
 		const fields = Object.fromEntries(new FormData(e.target));
-		const response = await loginUser(fields);
+		const response = await loginUser(fields).catch(() => {
+			changeStateErrors(['Servicio no disponible 😒']);
+			setLoading(false);
+		});
 		if (response.result) {
 			window.localStorage.setItem('token', response.data.token);
 			changeStateErrors(null);
@@ -20,6 +25,7 @@ export default function LoginPage() {
 			changeStateToken(response.data.token);
 			setRedirectToRoot(true);
 		} else {
+			setLoading(false);
 			changeStateErrors(response.response);
 		}
 	};
@@ -48,7 +54,11 @@ export default function LoginPage() {
 					placeholder='Hz!55K19'
 					required
 				/>
-				<input type='submit' value='Enviar' />
+				<input
+					type='submit'
+					value={loading ? 'Enviando...' : 'Enviar'}
+					disabled={loading}
+				/>
 			</form>
 		</div>
 	);
